@@ -1,27 +1,24 @@
 #include "lists.h"
-
 /**
- *check_cycle - checks if there a loop in a linked list
- *It uses the floyed-cycle algorithm
- *@list: head of the linked least
- *Return: 1 if there is a loop, 0 if there isn't
+ * check_cycle - check if loop exists in cycle
+ * @list: struct to be checked
+ *
+ * Return: 1 if it is, 0 if not
  */
+
 int check_cycle(listint_t *list)
 {
-	listint_t *fast = NULL, *slow = NULL;
+	listint_t *turtle = list;
+	listint_t *hare = list;
 
-	if (!list)
+	if (list == NULL)
 		return (0);
-	fast = list->next;
-	slow = list;
-
-	while (fast && fast->next)
+	while (turtle != NULL && hare != NULL && hare->next != NULL)
 	{
-		/*if there is a loop they would crush*/
-		if (fast == slow)
+		turtle = turtle->next;
+		hare = (hare->next)->next;
+		if (turtle == hare)
 			return (1);
-		fast = fast->next->next;
-		slow = slow->next;
 	}
 	return (0);
 }
